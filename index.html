@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belocal — Travel like you already know someone there</title>
+<meta name="description" content="Discover authentic Tunisia trips designed for you. Share your travel mood and let us design a personalized itinerary. Marketplace for local guides across the Maghreb.">
+<meta property="og:title" content="Belocal — Travel like you already know someone there">
+<meta property="og:description" content="Authentic Tunisia trips, custom designed. Share your preferences and get a personalized plan.">
+<meta property="og:image" content="belocal-logo.png">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="belocal-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F3E9D6;
+    --cream-soft:#EBDFC6;
+    --paper: #F8F1E2;
+    --ink:#37281B;
+    --ink-soft:#5E4A38;
+    --ink-faint: rgba(55,40,27,0.55);
+    --ochre:#C6871F;
+    --ochre-deep:#9C6A17;
+    --clay:#B15533;
+    --olive:#6C7A4E;
+    --teal:#2C6B60;
+    --teal-deep:#1F4E46;
+    --line: rgba(55,40,27,0.14);
+    --line-strong: rgba(55,40,27,0.28);
+    --shadow: 0 18px 40px rgba(55,40,27,0.14);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-pill: 999px;
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(198,135,31,0.10), transparent 40%),
+      radial-gradient(circle at 88% 4%, rgba(44,107,96,0.10), transparent 38%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:0.35;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--ochre);
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+    position:relative;
+    z-index:2;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:15px 28px;
+    border-radius:var(--radius-pill);
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform 0.35s cubic-bezier(.2,.7,.3,1), box-shadow 0.35s ease, background 0.35s ease;
+  }
+  .btn-primary{
+    background:var(--ochre);
+    color:var(--paper);
+    box-shadow:0 10px 26px rgba(198,135,31,0.35);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(198,135,31,0.42); background:var(--ochre-deep); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--teal);
+    color:var(--teal-deep);
+  }
+  .btn-ghost:hover{ background:rgba(44,107,96,0.08); transform:translateY(-2px); }
+  .btn-dark{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-dark:hover{ transform:translateY(-2px); background:#2a1d13; }
+
+  header.nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(243,233,214,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 32px;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+  }
+  .brand img{ width:44px; height:44px; border-radius:50%; }
+  .nav-links{
+    display:flex; gap:30px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .nav-links a{ position:relative; padding:4px 0; }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px;
+    width:0; height:1.5px; background:var(--ochre);
+    transition:width 0.3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-ctas{ display:flex; gap:12px; }
+  .nav-ctas .btn{ padding:10px 20px; font-size:13.5px; }
+
+  .hero{
+    position:relative;
+    padding:96px 0 40px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 66px);
+    line-height:1.04;
+    font-weight:600;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--clay);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    max-width:520px;
+    font-size:18px;
+    color:var(--ink-soft);
+  }
+  .hero-ctas{
+    display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;
+  }
+  .hero-stats{
+    display:flex; gap:34px; margin-top:46px;
+    font-family:'Space Mono', monospace;
+  }
+  .hero-stats div strong{
+    display:block; font-family:'Fraunces', serif; font-size:26px; font-weight:600; color:var(--ink);
+  }
+  .hero-stats div span{ font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); }
+
+  .hero-art{
+    position:relative;
+    aspect-ratio:1/1.05;
+  }
+  .hero-badge{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--olive) 0%, var(--teal) 55%, var(--teal-deep) 100%);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+  .hero-badge svg{ width:100%; height:100%; }
+  .hero-stamp{
+    position:absolute;
+    bottom:-18px; left:-14px;
+    background:var(--paper);
+    border:1.5px dashed var(--line-strong);
+    border-radius:50%;
+    width:118px; height:118px;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--clay);
+    transform:rotate(-9deg);
+    box-shadow:var(--shadow);
+  }
+
+  .divider{
+    display:block; width:100%; height:auto;
+    margin-top:-2px;
+  }
+
+  section{ position:relative; padding:88px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{
+    font-size:clamp(28px,3.4vw,42px);
+    font-weight:600;
+    margin-top:14px;
+    line-height:1.12;
+  }
+  .section-head p{ margin-top:16px; color:var(--ink-soft); font-size:16.5px; }
+
+  /* ---------- Inquiry Form Section ---------- */
+  .inquiry-bg{ background:var(--cream-soft); }
+  .inquiry-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:start;
+  }
+  .inquiry-form{
+    background:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:44px;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+  }
+  .inquiry-form h3{ font-size:24px; margin-bottom:8px; }
+  .inquiry-form p{ color:var(--ink-soft); margin-bottom:28px; }
+
+  .form-group{
+    margin-bottom:20px;
+  }
+  .form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:8px;
+    color:var(--ink);
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"],
+  .form-group textarea{
+    width:100%;
+    padding:12px 16px;
+    border-radius:var(--radius-md);
+    border:1.5px solid var(--line);
+    font-family:'Work Sans', sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    transition:border-color 0.3s ease;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--ochre);
+  }
+  .form-group textarea{
+    resize:vertical;
+    min-height:80px;
+  }
+
+  .checkbox-group{
+    margin-bottom:20px;
+  }
+  .checkbox-group label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:12px;
+    color:var(--ink);
+  }
+  .checkbox-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .checkbox-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .checkbox-item input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    cursor:pointer;
+    accent-color:var(--ochre);
+  }
+  .checkbox-item label{
+    margin:0;
+    font-weight:400;
+    cursor:pointer;
+  }
+
+  .form-submit{
+    width:100%;
+    padding:16px;
+    margin-top:28px;
+  }
+
+  .success-message{
+    display:none;
+    background:rgba(108,122,78,0.1);
+    border:1px solid var(--olive);
+    border-radius:var(--radius-md);
+    padding:20px;
+    margin-bottom:20px;
+    color:var(--olive);
+    text-align:center;
+  }
+  .success-message.show{ display:block; }
+
+  .inquiry-info{
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+  }
+  .info-card{
+    background:var(--paper);
+    border-radius:var(--radius-md);
+    padding:28px;
+    border:1px solid var(--line);
+  }
+  .info-card h4{
+    font-size:18px;
+    margin-bottom:12px;
+    color:var(--ink);
+  }
+  .info-card p{
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  /* ---------- Example Trips Section ---------- */
+  .examples-bg{ background:var(--cream); }
+  .examples-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  .trip-card{
+    background:var(--paper);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+  }
+  .trip-placeholder{
+    height:220px;
+    background:linear-gradient(135deg, rgba(198,135,31,0.08), rgba(44,107,96,0.08));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Mono', monospace;
+    font-size:14px;
+    color:var(--ink-faint);
+    text-align:center;
+    padding:20px;
+  }
+  .trip-content{
+    padding:32px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .trip-content h3{
+    font-size:22px;
+    margin-bottom:8px;
+  }
+  .trip-duration{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+    margin-bottom:16px;
+  }
+  .trip-description{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:20px;
+    flex:1;
+  }
+  .trip-cta{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .trip-cta a{
+    flex:1;
+    text-align:center;
+    padding:12px 16px;
+    border-radius:var(--radius-pill);
+    font-size:13.5px;
+    font-weight:600;
+    border:1.5px solid var(--ochre);
+    color:var(--ochre);
+    transition:all 0.3s ease;
+  }
+  .trip-cta a:hover{
+    background:var(--ochre);
+    color:var(--paper);
+  }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2.5px solid var(--clay); outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+
+  @media (max-width:980px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; max-width:340px; margin:0 auto; }
+    .inquiry-grid{ grid-template-columns:1fr; }
+    .examples-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding:64px 0 20px; }
+    section{ padding:64px 0; }
+    .checkbox-list{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <img src="belocal-logo.png" alt="Belocal logo">
+      Belocal
+    </div>
+    <nav class="nav-links">
+      <a href="#inquiry">Plan a trip</a>
+      <a href="#examples">What's possible</a>
+      <a href="#guides">Local guides</a>
+    </nav>
+    <div class="nav-ctas">
+      <a href="#inquiry" class="btn btn-primary">Start planning</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Custom Tunisia trips</span>
+      <h1>Travel like you already <em>know</em> someone there.</h1>
+      <p class="lede">Share your travel mood. We'll design a personalized itinerary, handle the bookings, and you'll explore Tunisia like a local — no script, no crowds, just someone who knows the way.</p>
+      <div class="hero-ctas">
+        <a href="#inquiry" class="btn btn-primary">Plan my trip</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>Tunisia</strong><span>Live now</span></div>
+        <div><strong>Custom</strong><span>Designed for you</span></div>
+        <div><strong>1:1</strong><span>Personal service</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-badge">
+        <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="210" r="6" fill="#F3E9D6" opacity="0.5"/>
+          <circle cx="120" cy="130" r="60" fill="none" stroke="#F3E9D6" stroke-width="2" opacity="0.55"/>
+          <path d="M20 300 Q120 220 200 280 T380 260" stroke="#F3E9D6" stroke-width="2" fill="none" opacity="0.5"/>
+          <path d="M40 340 L140 210 L200 270 L260 170 L380 340" stroke="#F3E9D6" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>
+          <line x1="255" y1="150" x2="255" y2="130" stroke="#F3E9D6" stroke-width="2" opacity="0.6"/>
+          <line x1="270" y1="155" x2="285" y2="140" stroke="#F3E9D6" stroke-width="2" opacity="0.6"/>
+          <line x1="240" y1="155" x2="225" y2="140" stroke="#F3E9D6" stroke-width="2" opacity="0.6"/>
+          <circle cx="255" cy="170" r="18" fill="none" stroke="#F3E9D6" stroke-width="2" opacity="0.8"/>
+          <rect x="150" y="255" width="46" height="60" rx="10" fill="none" stroke="#F3E9D6" stroke-width="2.5" opacity="0.9"/>
+          <rect x="163" y="290" width="20" height="22" rx="4" fill="none" stroke="#F3E9D6" stroke-width="2" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="hero-stamp">BELOCAL<br>TUNISIA<br>EST. TODAY</div>
+    </div>
+  </div>
+  <svg class="divider" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 60 C 240 10, 480 90, 720 50 C 960 10, 1200 90, 1440 40 L1440 90 L0 90 Z" fill="#EBDFC6"/>
+  </svg>
+</section>
+
+<section id="inquiry" class="inquiry-bg reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Start planning your journey</span>
+      <h2>Tell us what you're looking for.</h2>
+      <p>Share your travel preferences and we'll design a personalized itinerary just for you. It's secure, simple, and the first step to your perfect trip.</p>
+    </div>
+    <div class="inquiry-grid">
+      <div class="inquiry-form">
+        <div class="success-message" id="successMsg">
+          ✓ Thanks! We've received your inquiry. We'll review it and send you a plan for your journey within 48 hours.
+        </div>
+
+        <h3>Your trip details</h3>
+        <p>What should we know?</p>
+
+        <form id="inquiryForm">
+          <div class="form-group">
+            <label for="name">Full name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone number (optional)</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+
+          <div class="form-group">
+            <label for="travelers">Number of travelers (reservations needed) *</label>
+            <input type="number" id="travelers" name="travelers" min="1" value="2" required>
+          </div>
+
+          <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div>
+              <label for="travelDate">Preferred travel dates</label>
+              <input type="text" id="travelDate" name="travelDate" placeholder="e.g. March 2027, or flexible">
+            </div>
+            <div>
+              <label for="duration">Trip duration (days)</label>
+              <input type="number" id="duration" name="duration" min="1" placeholder="e.g. 7">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="budget">Budget range (optional)</label>
+            <input type="text" id="budget" name="budget" placeholder="e.g. €1000–1500 per person">
+          </div>
+
+          <div class="checkbox-group">
+            <label>What's your travel mood? (select as many as apply)</label>
+            <div class="checkbox-list">
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-honeymoon" name="mood" value="Honeymoon / romantic">
+                <label for="mood-honeymoon">Honeymoon / romantic</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-adventure" name="mood" value="Adventure / active">
+                <label for="mood-adventure">Adventure / active</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-cultural" name="mood" value="Cultural / history">
+                <label for="mood-cultural">Cultural / history</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-beach" name="mood" value="Beach / relaxation">
+                <label for="mood-beach">Beach / relaxation</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-desert" name="mood" value="Desert / Sahara">
+                <label for="mood-desert">Desert / Sahara</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mood-family" name="mood" value="Family travel">
+                <label for="mood-family">Family travel</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Anything else we should know? (specific cities, accommodation style, special requests)</label>
+            <textarea id="notes" name="notes" placeholder="Tell us more about your ideal trip..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">Send inquiry</button>
+        </form>
+      </div>
+
+      <div class="inquiry-info">
+        <div class="info-card">
+          <h4>What happens next?</h4>
+          <p>You send us your travel mood and preferences. Our team reviews it and creates a personalized itinerary — hotels, drivers, activities, everything. We'll send it to you within 48 hours, then we refine it together until it's perfect.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>Not sure what you want?</h4>
+          <p>Scroll down to see real examples of trips we've designed. Use them as inspiration or as a starting point — every journey is custom-built for you.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>Questions?</h4>
+          <p>Reach out anytime: <strong>belocal.tunisia@gmail.com</strong> or <strong>+216 23 172 468</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="examples" class="examples-bg reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What's possible</span>
+      <h2>Real trips. Real itineraries.</h2>
+      <p>Here's what we've designed before. Use them as inspiration for yours.</p>
+    </div>
+    <div class="examples-grid">
+      <div class="trip-card">
+        <div class="trip-placeholder">[Image: honeymoon destination]</div>
+        <div class="trip-content">
+          <span class="trip-duration">10 days</span>
+          <h3>A Honeymoon Journey</h3>
+          <p class="trip-description">From Tunis medina to Sahara dunes to coastal relaxation. Luxury hotels, private driver, curated experiences. Perfect for a romantic escape.</p>
+          <div class="trip-cta">
+            <a href="#" download>View PDF</a>
+            <a href="#inquiry">Use as template</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <div class="trip-placeholder">[Image: Sahara adventure]</div>
+        <div class="trip-content">
+          <span class="trip-duration">3 days</span>
+          <h3>Sahara Adventure</h3>
+          <p class="trip-description">Desert sunrise, quad biking, star-filled nights, tea with locals. For travelers who want authentic, unscripted moments in the dunes.</p>
+          <div class="trip-cta">
+            <a href="#" download>View PDF</a>
+            <a href="#inquiry">Use as template</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="background:var(--ink); color:rgba(243,233,214,0.7); padding:56px 0 28px; border-radius:0;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:36px; border-bottom:1px solid rgba(243,233,214,0.14);">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="belocal-logo.png" alt="Belocal logo" style="width:40px; height:40px; border-radius:50%;">
+        <span style="font-family:'Fraunces', serif; font-size:19px; color:var(--cream); font-weight:600;">Belocal</span>
+      </div>
+      <div style="display:flex; gap:60px;">
+        <div>
+          <h5 style="font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(243,233,214,0.45); margin:0 0 14px;">Contact</h5>
+          <a href="mailto:belocal.tunisia@gmail.com" style="display:block; font-size:14px; margin-bottom:9px; color:rgba(243,233,214,0.78);">belocal.tunisia@gmail.com</a>
+          <a href="tel:+21623172468" style="display:block; font-size:14px; color:rgba(243,233,214,0.78);">+216 23 172 468</a>
+        </div>
+        <div>
+          <h5 style="font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(243,233,214,0.45); margin:0 0 14px;">Follow</h5>
+          <a href="#" style="display:block; font-size:14px; margin-bottom:9px; color:rgba(243,233,214,0.78);">Instagram</a>
+          <a href="#" style="display:block; font-size:14px; color:rgba(243,233,214,0.78);">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:24px; font-size:12.5px; color:rgba(243,233,214,0.45);">
+      <span>© 2026 Belocal. Starting in Tunisia, opening across the Maghreb.</span>
+      <span>Made with local people, for local people.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+
+  // Form submission
+  // PASTE YOUR APPS SCRIPT WEB APP URL HERE ONCE DEPLOYED (see belocal-form-setup-instructions.md)
+  const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbyVvQF-1U27NniJ3IY7JDRdswm7sVa8W6rW2zCeZOkg-XW29aAAmWaYePsAH3srBVORHg/exec";
+
+  const form = document.getElementById('inquiryForm');
+  const successMsg = document.getElementById('successMsg');
+  const submitBtn = form.querySelector('.form-submit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone') || '(not provided)',
+      travelers: formData.get('travelers') || '(not specified)',
+      travelDate: formData.get('travelDate') || '(flexible / not specified)',
+      duration: formData.get('duration') || '(not specified)',
+      budget: formData.get('budget') || '(not specified)',
+      moods: formData.getAll('mood').join(', ') || '(not specified)',
+      notes: formData.get('notes') || '(none)'
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      if (INQUIRY_ENDPOINT.startsWith('http')) {
+        // Apps Script web apps don't return CORS headers readable by fetch,
+        // so we send with no-cors: the request still reaches the script
+        // and runs (logs the row + sends the emails), we just can't read the response.
+        await fetch(INQUIRY_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        console.warn('INQUIRY_ENDPOINT not set yet — submission was not sent anywhere. See belocal-form-setup-instructions.md.');
+      }
+
+      successMsg.classList.add('show');
+      form.style.opacity = '0.6';
+      setTimeout(() => {
+        form.reset();
+        form.style.opacity = '1';
+        successMsg.classList.remove('show');
+      }, 4000);
+    } catch (err) {
+      console.error('Submission failed:', err);
+      alert('Something went wrong sending your inquiry. Please email us directly at belocal.tunisia@gmail.com.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send inquiry';
+    }
+  });
+</script>
+
+</body>
+</html>
