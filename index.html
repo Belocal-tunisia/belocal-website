@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Belocal — Travel like you already know someone there</title>
-<meta name="description" content="Discover authentic Tunisia trips designed for you. Share your travel mood and let us design a personalized itinerary. Marketplace for local guides across the Maghreb.">
+<meta name="description" content="Custom-designed trips in Tunisia. Share your travel mood and get a personalized itinerary. Starting in Tunisia, opening across the Maghreb.">
 <meta property="og:title" content="Belocal — Travel like you already know someone there">
 <meta property="og:description" content="Authentic Tunisia trips, custom designed. Share your preferences and get a personalized plan.">
-<meta property="og:image" content="belocal-logo.png">
+<meta property="og:image" content="https://belocal-tunisia.github.io/belocal-website/belocal-logo.png">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="belocal-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -477,7 +477,6 @@
     <nav class="nav-links">
       <a href="#inquiry">Plan a trip</a>
       <a href="#examples">What's possible</a>
-      <a href="#guides">Local guides</a>
     </nav>
     <div class="nav-ctas">
       <a href="#inquiry" class="btn btn-primary">Start planning</a>
@@ -490,7 +489,7 @@
     <div>
       <span class="eyebrow">Custom Tunisia trips</span>
       <h1>Travel like you already <em>know</em> someone there.</h1>
-      <p class="lede">Share your travel mood. We'll design a personalized itinerary, handle the bookings, and you'll explore Tunisia like a local — no script, no crowds, just someone who knows the way.</p>
+      <p class="lede">Share your travel mood. We'll design a personalized itinerary and, depending on your trip, can also arrange hotels, drivers and car rental — so you explore Tunisia like a local: no script, no crowds, just someone who knows the way.</p>
       <div class="hero-ctas">
         <a href="#inquiry" class="btn btn-primary">Plan my trip</a>
       </div>
@@ -515,7 +514,7 @@
           <rect x="163" y="290" width="20" height="22" rx="4" fill="none" stroke="#F3E9D6" stroke-width="2" opacity="0.9"/>
         </svg>
       </div>
-      <div class="hero-stamp">BELOCAL<br>TUNISIA<br>EST. TODAY</div>
+      <div class="hero-stamp">BELOCAL<br>TUNISIA<br>EST. 2026</div>
     </div>
   </div>
   <svg class="divider" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -528,7 +527,7 @@
     <div class="section-head">
       <span class="eyebrow">Start planning your journey</span>
       <h2>Tell us what you're looking for.</h2>
-      <p>Share your travel preferences and we'll design a personalized itinerary just for you. It's secure, simple, and the first step to your perfect trip.</p>
+      <p>Share your travel preferences and we'll design a personalized itinerary just for you. It takes about two minutes, and it's the first step to your perfect trip.</p>
     </div>
     <div class="inquiry-grid">
       <div class="inquiry-form">
@@ -556,7 +555,7 @@
           </div>
 
           <div class="form-group">
-            <label for="travelers">Number of travelers (reservations needed) *</label>
+            <label for="travelers">Number of travelers *</label>
             <input type="number" id="travelers" name="travelers" min="1" value="2" required>
           </div>
 
@@ -611,6 +610,16 @@
             <textarea id="notes" name="notes" placeholder="Tell us more about your ideal trip..."></textarea>
           </div>
 
+          <div class="checkbox-item" style="margin-top:8px;">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent" style="font-size:13px; color:var(--ink-soft);">I agree that Belocal uses my details only to prepare my trip plan and to reply to me. Belocal does not sell my data, and I can ask for it to be deleted at any time.</label>
+          </div>
+
+          <div style="position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="company_website">Leave this field empty</label>
+            <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
+
           <button type="submit" class="btn btn-primary form-submit">Send inquiry</button>
         </form>
       </div>
@@ -618,7 +627,7 @@
       <div class="inquiry-info">
         <div class="info-card">
           <h4>What happens next?</h4>
-          <p>You send us your travel mood and preferences. Our team reviews it and creates a personalized itinerary — hotels, drivers, activities, everything. We'll send it to you within 48 hours, then we refine it together until it's perfect.</p>
+          <p>You send us your travel mood and preferences. Our team reviews it and creates a personalized itinerary: day-by-day plans, places to stay and things to do. Depending on your trip, we can also arrange hotels, drivers and car rental. We'll send it to you within 48 hours, then we refine it together until it's perfect.</p>
         </div>
 
         <div class="info-card">
@@ -644,26 +653,26 @@
     </div>
     <div class="examples-grid">
       <div class="trip-card">
-        <div class="trip-placeholder">[Image: honeymoon destination]</div>
+        <div class="trip-placeholder" data-photo-key="honeymoon">Tunis · Sahara · Coast</div>
         <div class="trip-content">
           <span class="trip-duration">10 days</span>
           <h3>A Honeymoon Journey</h3>
-          <p class="trip-description">From Tunis medina to Sahara dunes to coastal relaxation. Luxury hotels, private driver, curated experiences. Perfect for a romantic escape.</p>
+          <p class="trip-description">From Tunis medina to Sahara dunes to coastal relaxation. This example program included luxury hotels, a private driver and curated experiences. Yours can be lighter or fuller, to fit your wishes and budget.</p>
           <div class="trip-cta">
-            <a href="#" download>View PDF</a>
+            <a href="#inquiry" class="pdf-link" data-pdf-key="honeymoon">Request the full program</a>
             <a href="#inquiry">Use as template</a>
           </div>
         </div>
       </div>
 
       <div class="trip-card">
-        <div class="trip-placeholder">[Image: Sahara adventure]</div>
+        <div class="trip-placeholder" data-photo-key="sahara">Dunes · Stars · Tea with locals</div>
         <div class="trip-content">
           <span class="trip-duration">3 days</span>
           <h3>Sahara Adventure</h3>
           <p class="trip-description">Desert sunrise, quad biking, star-filled nights, tea with locals. For travelers who want authentic, unscripted moments in the dunes.</p>
           <div class="trip-cta">
-            <a href="#" download>View PDF</a>
+            <a href="#inquiry" class="pdf-link" data-pdf-key="sahara">Request the full program</a>
             <a href="#inquiry">Use as template</a>
           </div>
         </div>
@@ -685,15 +694,15 @@
           <a href="mailto:belocal.tunisia@gmail.com" style="display:block; font-size:14px; margin-bottom:9px; color:rgba(243,233,214,0.78);">belocal.tunisia@gmail.com</a>
           <a href="tel:+21623172468" style="display:block; font-size:14px; color:rgba(243,233,214,0.78);">+216 23 172 468</a>
         </div>
-        <div>
+        <div id="follow-col" style="display:none;">
           <h5 style="font-family:'Space Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(243,233,214,0.45); margin:0 0 14px;">Follow</h5>
-          <a href="#" style="display:block; font-size:14px; margin-bottom:9px; color:rgba(243,233,214,0.78);">Instagram</a>
-          <a href="#" style="display:block; font-size:14px; color:rgba(243,233,214,0.78);">Facebook</a>
+          <a href="#" data-social="instagram" style="display:none; font-size:14px; margin-bottom:9px; color:rgba(243,233,214,0.78);">Instagram</a>
+          <a href="#" data-social="facebook" style="display:none; font-size:14px; color:rgba(243,233,214,0.78);">Facebook</a>
         </div>
       </div>
     </div>
     <div style="display:flex; justify-content:space-between; align-items:center; padding-top:24px; font-size:12.5px; color:rgba(243,233,214,0.45);">
-      <span>© 2026 Belocal. Starting in Tunisia, opening across the Maghreb.</span>
+      <span>© 2026 Belocal. Starting in Tunisia, opening across the Maghreb.<br>Photos: <a href="https://unsplash.com/@jamillatrach" target="_blank" rel="noopener" style="text-decoration:underline;">Mohamed Jamil Latrach</a> and <a href="https://unsplash.com/@jeromeprax" target="_blank" rel="noopener" style="text-decoration:underline;">Jérôme Prax</a> on Unsplash.</span>
       <span>Made with local people, for local people.</span>
     </div>
   </div>
@@ -713,6 +722,46 @@
     revealEls.forEach(el=>el.classList.add('in'));
   }
 
+  // ---- SITE SETTINGS: paste real values here. Leave "" to keep the safe default. ----
+  const PDF_LINKS = {
+    honeymoon: "",   // e.g. "https://drive.google.com/file/d/FILE_ID/view"
+    sahara: ""       // e.g. "https://drive.google.com/file/d/FILE_ID/view"
+  };
+  const SOCIAL_LINKS = {
+    instagram: "https://www.instagram.com/be_local_tn/",   // Belocal Instagram (share token removed)
+    facebook: ""     // leave empty until the Facebook page exists
+  };
+  const TRIP_PHOTOS = {
+    // Free Unsplash photos (Unsplash License) as a stand-in until Belocal's own photos are ready.
+    // To use your own: upload to a photos/ folder in the repo and set e.g. "photos/honeymoon.jpg".
+    honeymoon: "https://images.unsplash.com/photo-1723579632461-3ba5840fa422?w=1200&q=75&auto=format&fit=crop", // Sidi Bou Said, by Mohamed Jamil Latrach
+    sahara: "https://images.unsplash.com/photo-1487060582949-8a4ea9710d16?w=1200&q=75&auto=format&fit=crop"      // Ksar Ghilane, by Jérôme Prax
+  };
+
+  document.querySelectorAll('.pdf-link').forEach(a => {
+    const url = PDF_LINKS[a.dataset.pdfKey];
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'View PDF'; }
+  });
+  let anySocial = false;
+  document.querySelectorAll('[data-social]').forEach(a => {
+    const url = SOCIAL_LINKS[a.dataset.social];
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.style.display = 'block'; anySocial = true; }
+  });
+  if (anySocial) document.getElementById('follow-col').style.display = 'block';
+  document.querySelectorAll('[data-photo-key]').forEach(el => {
+    const src = TRIP_PHOTOS[el.dataset.photoKey];
+    if (src) {
+      const label = el.textContent;
+      el.textContent = '';
+      el.style.padding = '0';
+      const img = document.createElement('img');
+      img.src = src; img.alt = label; img.loading = 'lazy';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover';
+      img.onerror = () => { el.textContent = label; el.style.padding = ''; }; // fall back to the text label
+      el.appendChild(img);
+    }
+  });
+
   // Form submission
   // PASTE YOUR APPS SCRIPT WEB APP URL HERE ONCE DEPLOYED (see belocal-form-setup-instructions.md)
   const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbyVvQF-1U27NniJ3IY7JDRdswm7sVa8W6rW2zCeZOkg-XW29aAAmWaYePsAH3srBVORHg/exec";
@@ -725,6 +774,7 @@
     e.preventDefault();
 
     const formData = new FormData(form);
+    if (formData.get('company_website')) { successMsg.classList.add('show'); return; } // spam trap
     const payload = {
       name: formData.get('name'),
       email: formData.get('email'),
