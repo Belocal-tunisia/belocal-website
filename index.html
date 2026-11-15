@@ -10,6 +10,15 @@
 <meta property="og:image" content="https://belocal-tunisia.github.io/belocal-website/belocal-logo.png">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="belocal-logo.png">
+<script>
+  // Framer Motion reveals: hide animated elements until js/animations.js runs.
+  // Failsafe: if the module can't load, show everything after 2.5s.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion-pending');
+    setTimeout(function(){ if (!window.__belocalMotionReady) document.documentElement.classList.remove('motion-pending'); }, 2500);
+  }
+</script>
+<link rel="modulepreload" href="js/framer-motion-dom.min.js">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -107,25 +116,21 @@
     font-size:15px;
     border:1.5px solid transparent;
     cursor:pointer;
-    transition:transform 0.35s cubic-bezier(.2,.7,.3,1), box-shadow 0.35s ease, background 0.35s ease;
   }
   .btn-primary{
     background:var(--ochre);
     color:var(--paper);
     box-shadow:0 10px 26px rgba(198,135,31,0.35);
   }
-  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(198,135,31,0.42); background:var(--ochre-deep); }
   .btn-ghost{
     background:transparent;
     border-color:var(--teal);
     color:var(--teal-deep);
   }
-  .btn-ghost:hover{ background:rgba(44,107,96,0.08); transform:translateY(-2px); }
   .btn-dark{
     background:var(--ink);
     color:var(--paper);
   }
-  .btn-dark:hover{ transform:translateY(-2px); background:#2a1d13; }
 
   header.nav{
     position:sticky; top:0; z-index:40;
@@ -152,12 +157,11 @@
     color:var(--ink-soft);
   }
   .nav-links a{ position:relative; padding:4px 0; }
-  .nav-links a::after{
-    content:""; position:absolute; left:0; bottom:-2px;
-    width:0; height:1.5px; background:var(--ochre);
-    transition:width 0.3s ease;
+  .link-underline{
+    position:absolute; left:0; right:0; bottom:-2px;
+    height:1.5px; background:var(--ochre);
+    transform:scaleX(0); transform-origin:left center;
   }
-  .nav-links a:hover::after{ width:100%; }
   .nav-ctas{ display:flex; gap:12px; }
   .nav-ctas .btn{ padding:10px 20px; font-size:13.5px; }
 
@@ -283,12 +287,10 @@
     font-family:'Work Sans', sans-serif;
     font-size:14px;
     color:var(--ink);
-    transition:border-color 0.3s ease;
   }
   .form-group input:focus,
   .form-group textarea:focus{
     outline:none;
-    border-color:var(--ochre);
   }
   .form-group textarea{
     resize:vertical;
@@ -385,6 +387,7 @@
   }
   .trip-placeholder{
     height:220px;
+    overflow:hidden;
     background:linear-gradient(135deg, rgba(198,135,31,0.08), rgba(44,107,96,0.08));
     display:flex;
     align-items:center;
@@ -433,15 +436,14 @@
     font-weight:600;
     border:1.5px solid var(--ochre);
     color:var(--ochre);
-    transition:all 0.3s ease;
-  }
-  .trip-cta a:hover{
-    background:var(--ochre);
-    color:var(--paper);
   }
 
-  .reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.3,1); }
-  .reveal.in{ opacity:1; transform:translateY(0); }
+  /* Animated by Framer Motion (js/animations.js). Hidden only while JS is pending. */
+  .motion-pending [data-hero],
+  .motion-pending [data-reveal],
+  .motion-pending [data-stagger] > *,
+  .motion-pending .hero-badge,
+  .motion-pending .hero-stamp{ opacity:0; }
 
   a:focus-visible, button:focus-visible, input:focus-visible{
     outline:2.5px solid var(--clay); outline-offset:3px;
@@ -449,7 +451,6 @@
 
   @media (prefers-reduced-motion:reduce){
     *{ animation:none !important; transition:none !important; }
-    .reveal{ opacity:1; transform:none; }
   }
 
   @media (max-width:980px){
@@ -487,13 +488,13 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Custom Tunisia trips</span>
-      <h1>Travel like you already <em>know</em> someone there.</h1>
-      <p class="lede">Share your travel mood. We'll design a personalized itinerary and, depending on your trip, can also arrange hotels, drivers and car rental — so you explore Tunisia like a local: no script, no crowds, just someone who knows the way.</p>
-      <div class="hero-ctas">
+      <span class="eyebrow" data-hero>Custom Tunisia trips</span>
+      <h1 data-hero>Travel like you already <em>know</em> someone there.</h1>
+      <p class="lede" data-hero>Share your travel mood. We'll design a personalized itinerary and, depending on your trip, can also arrange hotels, drivers and car rental — so you explore Tunisia like a local: no script, no crowds, just someone who knows the way.</p>
+      <div class="hero-ctas" data-hero>
         <a href="#inquiry" class="btn btn-primary">Plan my trip</a>
       </div>
-      <div class="hero-stats">
+      <div class="hero-stats" data-stagger="0.12">
         <div><strong>Tunisia</strong><span>Live now</span></div>
         <div><strong>Custom</strong><span>Designed for you</span></div>
         <div><strong>1:1</strong><span>Personal service</span></div>
@@ -522,15 +523,15 @@
   </svg>
 </section>
 
-<section id="inquiry" class="inquiry-bg reveal">
+<section id="inquiry" class="inquiry-bg">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-stagger="0.1">
       <span class="eyebrow">Start planning your journey</span>
       <h2>Tell us what you're looking for.</h2>
       <p>Share your travel preferences and we'll design a personalized itinerary just for you. It takes about two minutes, and it's the first step to your perfect trip.</p>
     </div>
     <div class="inquiry-grid">
-      <div class="inquiry-form">
+      <div class="inquiry-form" data-reveal>
         <div class="success-message" id="successMsg">
           ✓ Thanks! We've received your inquiry. We'll review it and send you a plan for your journey within 48 hours.
         </div>
@@ -624,7 +625,7 @@
         </form>
       </div>
 
-      <div class="inquiry-info">
+      <div class="inquiry-info" data-stagger="0.14">
         <div class="info-card">
           <h4>What happens next?</h4>
           <p>You send us your travel mood and preferences. Our team reviews it and creates a personalized itinerary: day-by-day plans, places to stay and things to do. Depending on your trip, we can also arrange hotels, drivers and car rental. We'll send it to you within 48 hours, then we refine it together until it's perfect.</p>
@@ -644,14 +645,14 @@
   </div>
 </section>
 
-<section id="examples" class="examples-bg reveal">
+<section id="examples" class="examples-bg">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-stagger="0.1">
       <span class="eyebrow">What's possible</span>
       <h2>Real trips. Real itineraries.</h2>
       <p>Here's what we've designed before. Use them as inspiration for yours.</p>
     </div>
-    <div class="examples-grid">
+    <div class="examples-grid" data-stagger="0.16">
       <div class="trip-card">
         <div class="trip-placeholder" data-photo-key="honeymoon">Tunis · Sahara · Coast</div>
         <div class="trip-content">
@@ -682,7 +683,7 @@
 </section>
 
 <footer>
-  <div class="wrap" style="background:var(--ink); color:rgba(243,233,214,0.7); padding:56px 0 28px; border-radius:0;">
+  <div class="wrap" data-reveal style="background:var(--ink); color:rgba(243,233,214,0.7); padding:56px 0 28px; border-radius:0;">
     <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:36px; border-bottom:1px solid rgba(243,233,214,0.14);">
       <div style="display:flex; align-items:center; gap:12px;">
         <img src="belocal-logo.png" alt="Belocal logo" style="width:40px; height:40px; border-radius:50%;">
@@ -709,18 +710,13 @@
 </footer>
 
 <script>
-  // Scroll reveal
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { threshold:0.12 });
-    revealEls.forEach(el=>io.observe(el));
-  } else {
-    revealEls.forEach(el=>el.classList.add('in'));
-  }
+  // Scroll reveals, staggers and hover transitions live in js/animations.js (Framer Motion).
+  // These helpers use it when loaded and fall back to instant changes otherwise.
+  const motion = {
+    showSuccess: (el) => window.belocalMotion ? window.belocalMotion.showSuccess(el) : el.classList.add('show'),
+    hideSuccess: (el) => window.belocalMotion ? window.belocalMotion.hideSuccess(el) : el.classList.remove('show'),
+    fade: (el, o) => window.belocalMotion ? window.belocalMotion.fade(el, o) : (el.style.opacity = o)
+  };
 
   // ---- SITE SETTINGS: paste real values here. Leave "" to keep the safe default. ----
   const PDF_LINKS = {
@@ -774,7 +770,7 @@
     e.preventDefault();
 
     const formData = new FormData(form);
-    if (formData.get('company_website')) { successMsg.classList.add('show'); return; } // spam trap
+    if (formData.get('company_website')) { motion.showSuccess(successMsg); return; } // spam trap
     const payload = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -805,12 +801,12 @@
         console.warn('INQUIRY_ENDPOINT not set yet — submission was not sent anywhere. See belocal-form-setup-instructions.md.');
       }
 
-      successMsg.classList.add('show');
-      form.style.opacity = '0.6';
+      motion.showSuccess(successMsg);
+      motion.fade(form, 0.6);
       setTimeout(() => {
         form.reset();
-        form.style.opacity = '1';
-        successMsg.classList.remove('show');
+        motion.fade(form, 1);
+        motion.hideSuccess(successMsg);
       }, 4000);
     } catch (err) {
       console.error('Submission failed:', err);
@@ -821,6 +817,7 @@
     }
   });
 </script>
+<script type="module" src="js/animations.js"></script>
 
 </body>
 </html>
